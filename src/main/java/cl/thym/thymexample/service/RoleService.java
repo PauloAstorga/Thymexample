@@ -10,6 +10,8 @@ public interface RoleService {
 
     void init();
 
+    List<Role> findAll();
+
     Role findRoleById(Long id) throws NotFoundException;
 
     Role findRoleByName(String name) throws NotFoundException;

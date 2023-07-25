@@ -1,6 +1,6 @@
 package cl.thym.thymexample.service;
 
-import cl.thym.thymexample.entity.User;
+import cl.thym.thymexample.entity.UserPrivate;
 import cl.thym.thymexample.ex.NotFoundException;
 
 import java.util.List;
@@ -9,14 +9,16 @@ public interface UserService {
 
     void init();
 
-    User findUserById(Long idUser) throws NotFoundException;
+    List<UserPrivate> findAll();
 
-    User findByUsername(String username) throws NotFoundException;
+    UserPrivate findUserById(Long idUser) throws NotFoundException;
 
-    List<User> findByUsernameLike(String usernameLike) throws NotFoundException;
+    UserPrivate findByUsername(String username) throws NotFoundException;
 
-    User findByEmail(String email) throws NotFoundException;
+    List<UserPrivate> findByUsernameLike(String usernameLike) throws NotFoundException;
 
-    List<User> findByEmailLike(String email) throws NotFoundException;
+    UserPrivate findByRole(Long roleId) throws NotFoundException;
+
+    List<UserPrivate> findByRoleLike(Long roleIdLike) throws NotFoundException;
 
 }

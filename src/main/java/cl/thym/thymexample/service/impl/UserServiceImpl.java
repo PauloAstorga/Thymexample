@@ -1,6 +1,6 @@
 package cl.thym.thymexample.service.impl;
 
-import cl.thym.thymexample.entity.User;
+import cl.thym.thymexample.entity.UserPrivate;
 import cl.thym.thymexample.ex.NotFoundException;
 import cl.thym.thymexample.repository.UserRepository;
 import cl.thym.thymexample.service.UserService;
@@ -20,19 +20,36 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void init() {
-        userRepository.save(new User(1L, "pepe", "321321", 1L));
-        userRepository.save(new User(2L, "pepin", "321321", 3L));
-        userRepository.save(new User(3L, "pepote", "321321", 2L));
-        userRepository.save(new User(4L, "jjj", "321321", 1L));
-        userRepository.save(new User(5L, "zxcvbn", "321321", 2L));
-        userRepository.save(new User(6L, "epe", "321321", 3L));
-        userRepository.save(new User(7L, "pe", "321321", 2L));
+        userRepository.save(new UserPrivate(1L, "pepe", "321321", 1L));
+        userRepository.save(new UserPrivate(2L, "pepin", "321321", 3L));
+        userRepository.save(new UserPrivate(3L, "pepote", "321321", 2L));
+        userRepository.save(new UserPrivate(4L, "jjj", "321321", 1L));
+        userRepository.save(new UserPrivate(5L, "zxcvbn", "321321", 2L));
+        userRepository.save(new UserPrivate(6L, "epe", "321321", 3L));
+        userRepository.save(new UserPrivate(7L, "pe", "321321", 2L));
     }
 
     @Override
-    public User findByUsername(String username) throws NotFoundException {
+    public List<UserPrivate> findAll() {
+        return userRepository.findAll();
+    }
 
-        Optional<User> userFound = Optional.ofNullable(userRepository.findByUsername(username));
+    @Override
+    public UserPrivate findUserById(Long id) throws NotFoundException {
+        Optional<UserPrivate> userFound = userRepository.findById(id);
+
+        if (!userFound.isPresent()) {
+            log.error("User(s) not found with id : " + id);
+            throw new NotFoundException("User(s) not found with id : " + id);
+        }
+
+        return userFound.get();
+    }
+
+    @Override
+    public UserPrivate findByUsername(String username) throws NotFoundException {
+
+        Optional<UserPrivate> userFound = Optional.ofNullable(userRepository.findByUsername(username));
 
         if (!userFound.isPresent()) {
             log.error("User(s) not found with username : " + username);
@@ -43,9 +60,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findByUsernameLike(String usernameLike) throws NotFoundException {
+    public List<UserPrivate> findByUsernameLike(String usernameLike) throws NotFoundException {
 
-        Optional<List<User>> usersFound = Optional.ofNullable(userRepository.findByUsernameLike(usernameLike));
+        Optional<List<UserPrivate>> usersFound = Optional.ofNullable(userRepository.findByUsernameLike(usernameLike));
 
         if (!usersFound.isPresent()) {
             log.error("User(s) not found with username like : " + usernameLike);
@@ -56,25 +73,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByEmail(String email) throws NotFoundException {
-        Optional<User> userFound = Optional.ofNullable(userRepository.findByEmail(email));
+    public UserPrivate findByRole(Long roleId) throws NotFoundException {
+        Optional<UserPrivate> userFound = Optional.ofNullable(userRepository.findByRoleId(roleId));
 
         if (!userFound.isPresent()) {
-            log.error("User(s) not found with email : " + email);
-            throw new NotFoundException("User(s) not found with email : " + email);
+            log.error("User(s) not found with roleId : " + roleId);
+            throw new NotFoundException("User(s) not found with roleId : " + roleId);
         }
 
         return userFound.get();
     }
 
     @Override
-    public List<User> findByEmailLike(String emailLike) throws NotFoundException {
+    public List<UserPrivate> findByRoleLike(Long roleIdLike) throws NotFoundException {
 
-        Optional<List<User>> usersFound = Optional.ofNullable(userRepository.findByEmailLike(emailLike));
+        Optional<List<UserPrivate>> usersFound = Optional.ofNullable(userRepository.findByRoleIdLike(roleIdLike));
 
         if (!usersFound.isPresent()) {
-            log.error("User(s) not found with email like : " + emailLike);
-            throw new NotFoundException("User(s) not found with email like : " + emailLike);
+            log.error("User(s) not found with roleId like : " + roleIdLike);
+            throw new NotFoundException("User(s) not found with roleId like : " + roleIdLike);
         }
 
         return usersFound.get();

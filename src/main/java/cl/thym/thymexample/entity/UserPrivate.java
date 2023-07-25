@@ -10,16 +10,14 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class UserPrivate {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "username", length = 20, unique = true, updatable = false)
     private String username;
 
-    @Column(name = "password", length = 255)
     private String password;
 
     private Long roleId;

@@ -1,21 +1,20 @@
 package cl.thym.thymexample.repository;
 
-import cl.thym.thymexample.entity.User;
+import cl.thym.thymexample.entity.UserPrivate;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<UserPrivate, Long> {
 
-    public User findByUsername(String username);
+    public UserPrivate findByUsername(String username);
 
-    public List<User> findByUsernameLike(String username);
+    public List<UserPrivate> findByUsernameLike(String username);
 
-    public User findByEmail(String email);
+    public UserPrivate findByRoleId(Long roleId);
 
-    public List<User> findByEmailLike(String email);
+    public List<UserPrivate> findByRoleIdLike(Long roleIdLike);
 
 }

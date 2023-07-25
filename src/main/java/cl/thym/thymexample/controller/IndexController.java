@@ -27,7 +27,7 @@ public class IndexController {
         userService.init();
 
         model.addAttribute("title", Thymenum.TITLE.getValue());
-        model.addAttribute("userList", null);
+        model.addAttribute("userList", userService.findAll());
         return "index";
     }
 
