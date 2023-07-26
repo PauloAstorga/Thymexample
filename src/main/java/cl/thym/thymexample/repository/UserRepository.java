@@ -17,4 +17,8 @@ public interface UserRepository extends JpaRepository<UserPrivate, Long> {
 
     public List<UserPrivate> findByRoleIdLike(Long roleIdLike);
 
+    public List<UserPrivate> findUserPrivatesByEmailLike(String emailLike);
+
+    public UserPrivate findUserPrivateByEmail(String email);
+
 }

@@ -20,13 +20,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void init() {
-        userRepository.save(new UserPrivate(1L, "pepe", "321321", 1L));
-        userRepository.save(new UserPrivate(2L, "pepin", "321321", 3L));
-        userRepository.save(new UserPrivate(3L, "pepote", "321321", 2L));
-        userRepository.save(new UserPrivate(4L, "jjj", "321321", 1L));
-        userRepository.save(new UserPrivate(5L, "zxcvbn", "321321", 2L));
-        userRepository.save(new UserPrivate(6L, "epe", "321321", 3L));
-        userRepository.save(new UserPrivate(7L, "pe", "321321", 2L));
+        userRepository.save(new UserPrivate(1L, "pepe", "321321", "pepe1@gmail.com", 1L));
+        userRepository.save(new UserPrivate(2L, "pepin", "321321", "pepin@gmail.com", 3L));
+        userRepository.save(new UserPrivate(3L, "pepote", "321321", "pepote@gmail.com", 2L));
+        userRepository.save(new UserPrivate(4L, "jjj", "321321", "jjj@gmail.com", 1L));
+        userRepository.save(new UserPrivate(5L, "zxcvbn", "321321", "zxcvbn@gmail.com", 2L));
+        userRepository.save(new UserPrivate(6L, "epe", "321321", "epe@gmail.com", 3L));
+        userRepository.save(new UserPrivate(7L, "pe", "321321", "pe@gmail.com", 2L));
     }
 
     @Override
@@ -95,6 +95,30 @@ public class UserServiceImpl implements UserService {
         }
 
         return usersFound.get();
+    }
+
+    @Override
+    public List<UserPrivate> findUserPrivatesByEmailLike(String emailLike) throws NotFoundException {
+        Optional<List<UserPrivate>> usersFound = Optional.ofNullable(userRepository.findUserPrivatesByEmailLike(emailLike));
+
+        if (!usersFound.isPresent()) {
+            log.error("User(s) not found with email like : " + emailLike);
+            throw new NotFoundException("User(s) not found with email like : " + emailLike);
+        }
+
+        return usersFound.get();
+    }
+
+    @Override
+    public UserPrivate findUserPrivatebyEmail(String email) throws NotFoundException {
+        Optional<UserPrivate> userFound = Optional.ofNullable(userRepository.findUserPrivateByEmail(email));
+
+        if (!userFound.isPresent()) {
+            log.error("User(s) not found with email : " + email);
+            throw new NotFoundException("User(s) not found with email : " + email);
+        }
+
+        return userFound.get();
     }
 
 }

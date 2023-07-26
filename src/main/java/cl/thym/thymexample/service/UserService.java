@@ -21,4 +21,8 @@ public interface UserService {
 
     List<UserPrivate> findByRoleLike(Long roleIdLike) throws NotFoundException;
 
+    List<UserPrivate> findUserPrivatesByEmailLike(String emailLike) throws NotFoundException;
+
+    UserPrivate findUserPrivatebyEmail(String email) throws NotFoundException;
+
 }
