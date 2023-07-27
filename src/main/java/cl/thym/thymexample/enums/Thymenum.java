@@ -2,7 +2,9 @@ package cl.thym.thymexample.enums;
 
 public enum Thymenum {
 
-    TITLE("Thymexample App");
+    TITLE("Thymexample App"),
+    USER_TITLE("Thymexample Users")
+    ;
 
     private String value;
 
