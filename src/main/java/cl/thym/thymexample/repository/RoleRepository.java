@@ -13,10 +13,10 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
 
     public Role findRoleByName(String name);
 
-    @Query(nativeQuery = true, value = "select * from Role r where r.name LIKE %:nameLike%")
+    @Query("FROM Role r WHERE r.name LIKE %:nameLike%")
     public List<Role> findRoleByNameLike(@Param("nameLike") String nameLike);
 
-    @Query(nativeQuery = true, value = "select * from Role r where r.id LIKE %:idLike%")
+    @Query(nativeQuery = true ,value = "select * from Role r where r.id LIKE %:idLike%")
     public List<Role> findRoleByIdLike(@Param("idLike") Long idLike);
 
 }
