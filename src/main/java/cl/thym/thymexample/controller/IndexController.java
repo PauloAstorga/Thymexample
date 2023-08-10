@@ -2,9 +2,9 @@ package cl.thym.thymexample.controller;
 
 import cl.thym.thymexample.entity.UserPrivate;
 import cl.thym.thymexample.enums.Endpoints;
-import cl.thym.thymexample.enums.Thymenum;
 import cl.thym.thymexample.service.RoleService;
 import cl.thym.thymexample.service.UserService;
+import cl.thym.thymexample.util.IndexUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,12 +32,13 @@ public class IndexController {
             userService.init();
         }
 
-        model.addAttribute("title", Thymenum.TITLE.getValue());
+        IndexUtil.fillIndexModel(model);
         model.addAttribute("userList", userService.findAll());
+
         return "index";
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping(Endpoints.INDEX_GET_USER)
     public String indexHomePost(@PathVariable Long userId, Model model) throws Exception{
 
         /*
@@ -53,7 +54,7 @@ public class IndexController {
             model.addAttribute("userFound", null);
         }
 
-        model.addAttribute("title",Thymenum.TITLE.getValue());
+        IndexUtil.fillIndexModel(model);
         model.addAttribute("userList", userService.findAll());
         model.addAttribute("searchUser", true);
 
